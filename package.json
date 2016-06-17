@@ -1,0 +1,27 @@
+{
+  "name": "debug-squasher",
+  "version": "1.0.0",
+  "description": "debug tool used for app store and other projects.",
+  "main": "src/tool.js",
+  "scripts": {
+    "start": "DEBUG=true node src/tool.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Funom Tunga-Lergo",
+  "license": "ISC",
+  "keywords": [
+    "tool",
+    "debug",
+    "debug-squasher",
+    "debugger",
+    "thebug",
+    "utility"
+  ],
+  "devDependencies": {
+    "eslint": "2.11.1",
+    "eslint-config-airbnb": "9.0.1",
+    "eslint-plugin-import": "1.8.1",
+    "eslint-plugin-jsx-a11y": "1.3.0",
+    "eslint-plugin-react": "5.1.1"
+  }
+}
