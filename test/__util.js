@@ -1,4 +1,4 @@
-const util = require('../src/util');
+const util = require('../util');
 const expect = require('chai').expect;
 
 describe('Debug-Squasher Debug Tool Test: ', () => {
