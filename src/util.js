@@ -4,7 +4,7 @@ exports.debug = (title, obj) => {
   const colors = require('colors');
   const tstamp = new Date();
 
-  const timeOutput = '\n [ ' + tstamp + ' ] \n'.green;
+  const timeOutput = '\n [ ' + tstamp + ' ] \n';
   const seperator = '\n==========================\n'.red;
   // create output string from variables
   const output = seperator + title + seperator;
@@ -13,7 +13,7 @@ exports.debug = (title, obj) => {
   if (process.env.DEBUG) {
     fs.appendFile('log/lincoln.log', output, (err) => {
       if (err) throw err;
-      console.log(output, obj, timeOutput);
+      console.log(output, obj, timeOutput.green);
     });
   }
 };
