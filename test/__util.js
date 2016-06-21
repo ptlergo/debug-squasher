@@ -7,4 +7,6 @@ describe('Debug-Squasher Debug Tool Test: ', () => {
     expect(util.output).to.not.equal(null);
     done();
   });
+
+  // stub to test logging
 });
