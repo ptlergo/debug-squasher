@@ -1,5 +1,6 @@
 exports.debug = (title, obj) => {
   const fs = require('fs');
+  const colors = require('colors');
   const tstamp = new Date();
 
   const timeOutput = '\n [ ' + tstamp + ' ] \n';
