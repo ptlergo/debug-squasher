@@ -1,8 +1,12 @@
 {
   "name": "debug-squasher",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "debug tool used for app store and other projects.",
   "main": "util.js",
+  "engines": {
+    "node": "v6.2.0",
+    "npm": "3.8.9"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
