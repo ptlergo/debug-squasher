@@ -8,9 +8,9 @@ exports.debug = (title, obj) => {
 
   // if DEBUG=true display the debugger
   if (process.env.DEBUG) {
-    fs.appendFile('../log/lincoln.log', output, (err) => {
+    fs.appendFile('log/lincoln.log', output, (err) => {
       if (err) throw err;
-      console.log(output, obj);
+      console.log(output);
     });
   }
 };
