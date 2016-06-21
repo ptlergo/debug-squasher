@@ -1,5 +1,6 @@
 exports.debug = (title, obj) => {
   const fs = require('fs');
+  // create colors inside conosole.log
   const colors = require('colors');
   const tstamp = new Date();
 
