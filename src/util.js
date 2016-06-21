@@ -4,8 +4,8 @@ exports.debug = (title, obj) => {
   const colors = require('colors');
   const tstamp = new Date();
 
-  const timeOutput = '\n [ ' + tstamp + ' ] \n';
-  const seperator = '\n==========================\n';
+  const timeOutput = '\n [ ' + tstamp + ' ] \n'.green;
+  const seperator = '\n==========================\n'.red;
   // create output string from variables
   const output = seperator + title + seperator;
 
