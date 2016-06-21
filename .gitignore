@@ -2,3 +2,6 @@
 .DS_Store
 npm-debug.log
 /log
+*.log
+*.logs
+npm-debug.log*
