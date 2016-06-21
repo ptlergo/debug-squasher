@@ -2,7 +2,7 @@ exports.debug = (title, obj) => {
   const fs = require('fs');
   const tstamp = new Date();
 
-  const timeOutput = ' [ ' + tstamp + ' ]';
+  const timeOutput = '\n [ ' + tstamp + ' ] \n';
   const seperator = '\n==========================\n';
   // create output string from variables
   const output = seperator + title + seperator;
