@@ -52,3 +52,46 @@ exports.debug = (title, obj, method) => {
 
   }
 };
+
+exports.versionbump = (currentVersion, tag) => {
+  // Split the string at the dot
+  let intVersionArray = currentVersion.split('.');
+  // Loop through the split array
+  for ( let i = 0; i <= intVersionArray.length; i++ ) {
+    parseInt(intVersionArray[i]);
+  };
+  // Varify that the tag is either major minor or patch.
+  if (tag === 'major' || tag == 'minor' || tag == 'patch') {
+    if (tag === 'major') {
+      // Increase major and zero out minor and patch.
+      // Then turn everything to a sting and join with a dot.
+      intVersionArray[0]++;
+      intVersionArray[0].toString();
+      intVersionArray[1] = '0';
+      intVersionArray[2] = '0';
+      const majorVersionBump = intVersionArray.join('.');
+      return majorVersionBump;
+    } else if (tag === 'minor') {
+      // increase minor and zero patch.
+      // Then turn everything to a sting and join with a dot.
+      intVersionArray[0].toString();
+      intVersionArray[1]++;
+      intVersionArray[1].toString();
+      intVersionArray[2] = '0';
+      const minorVersionBump = intVersionArray.join('.');
+      return minorVersionBump;
+    } else if (tag === 'patch') {
+      // increase patch.
+      // Then turn everything to a sting and join with a dot.
+      intVersionArray[0].toString();
+      intVersionArray[1].toString();
+      intVersionArray[2]++;
+      intVersionArray[2].toString();
+      const patchVersionBump = intVersionArray.join('.');
+      return patchVersionBump;
+    }
+  } else {
+    // return an error string to throw error in console with gulp
+    return 'error';
+  };
+};
