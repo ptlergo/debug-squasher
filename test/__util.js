@@ -1,6 +1,7 @@
 const util = require('../src/util');
 const expect = require('chai').expect;
 const pkgDotJson = require('../package.json');
+const sinon = require('sinon');
 
 describe('Debug-Squasher Debug Tool Test: ', () => {
   // stub to test output
@@ -80,7 +81,42 @@ describe('Version Bump Util: ', () => {
 });
 
 describe('Console Log, Error, Warn: ', () => {
-  it('Should util.log');
-  it('Should util.error');
-  it('Should util.warn');
+  // mock obj and string to pass into the util
+  const testObj = { hello: 'test' };
+  const testString = 'test title';
+  // Creating a object of methods for sinon
+  const objspy = {
+    log: (testtitle, obj, methodType) => {
+      util.debug(testtitle, obj, methodType);
+    },
+    error: (testtitle, obj, methodType) => {
+      util.debug(testtitle, obj, methodType);
+    },
+    warn: (testtitle, obj, methodType) => {
+      util.debug(testtitle, obj, methodType);
+    },
+  };
+  // settingt the spy on the methods
+  const logit = sinon.spy(objspy, 'log');
+  const errorit = sinon.spy(objspy, 'error');
+  const warnit = sinon.spy(objspy, 'warn');
+
+  // console.log test
+  it('Should util.log', () => {
+    objspy.log(testString, testObj, 'log');
+    expect(logit.calledWith(testString, testObj)).to.be.true;
+    expect(logit.calledOnce).to.be.true;
+  });
+  // console.error test
+  it('Should util.error', () => {
+    objspy.error(testString, testObj, 'error');
+    expect(errorit.calledWith(testString, testObj)).to.be.true;
+    expect(errorit.calledOnce).to.be.true;
+  });
+  // console.warn test
+  it('Should util.warn', () => {
+    objspy.warn(testString, testObj, 'warn');
+    expect(warnit.calledWith(testString, testObj)).to.be.true;
+    expect(warnit.calledOnce).to.be.true;
+  });
 });
