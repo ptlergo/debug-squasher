@@ -19,11 +19,11 @@ exports.debug = (title, obj, method) => {
       const log = output + colors.blue(timeOutput) + fObj;
       console.log(log);
     } else if (method === 'error') {
-      const log = output + colors.red(timeOutput) + fObj;
-      console.log(log);
+      const error = output + colors.red(timeOutput) + fObj;
+      console.error(error);
     } else if (method === 'warn') {
-      const log = output + colors.yellow(timeOutput) + fObj;
-      console.log(log);
+      const warn = output + colors.yellow(timeOutput) + fObj;
+      console.warn(warn);
     } else {
       console.error(colors.red('You have passed a invalid method'));
     }
