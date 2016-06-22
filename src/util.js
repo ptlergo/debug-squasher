@@ -1,8 +1,7 @@
 exports.debug = (title, obj, method) => {
-  const fs = require('fs');
   // create colors inside conosole.log
   const colors = require('colors');
-  const utils = require('util')
+  const utils = require('util');
   // Format time stamp
   const moment = require('moment');
   const time = moment().format('ddd, MM/Do/YY, h:mm:ssa');
@@ -17,30 +16,30 @@ exports.debug = (title, obj, method) => {
   // if DEBUG=true display the debugger
   if (process.env.DEBUG) {
     if (method === 'log') {
-      const log = output + colors.blue(timeOutput) + fObj
+      const log = output + colors.blue(timeOutput) + fObj;
       console.log(log);
     } else if (method === 'error') {
-      const log = output + colors.red(timeOutput) + fObj
+      const log = output + colors.red(timeOutput) + fObj;
       console.log(log);
     } else if (method === 'warn') {
-      const log = output + colors.yellow(timeOutput) + fObj
+      const log = output + colors.yellow(timeOutput) + fObj;
       console.log(log);
     } else {
       console.error(colors.red('You have passed a invalid method'));
     }
-
   }
 };
 
 exports.versionbump = (currentVersion, tag) => {
+  let newVersion;
   // Split the string at the dot
-  let intVersionArray = currentVersion.split('.');
+  const intVersionArray = currentVersion.split('.');
   // Loop through the split array
-  for ( let i = 0; i <= intVersionArray.length; i++ ) {
-    parseInt(intVersionArray[i]);
-  };
+  for (let i = 0; i <= intVersionArray.length; i++) {
+    parseInt(intVersionArray[i], 10);
+  }
   // Varify that the tag is either major minor or patch.
-  if (tag === 'major' || tag == 'minor' || tag == 'patch') {
+  if (tag === 'major' || tag === 'minor' || tag === 'patch') {
     if (tag === 'major') {
       // Increase major and zero out minor and patch.
       // Then turn everything to a sting and join with a dot.
@@ -49,7 +48,7 @@ exports.versionbump = (currentVersion, tag) => {
       intVersionArray[1] = '0';
       intVersionArray[2] = '0';
       const majorVersionBump = intVersionArray.join('.');
-      return majorVersionBump;
+      newVersion = majorVersionBump;
     } else if (tag === 'minor') {
       // increase minor and zero patch.
       // Then turn everything to a sting and join with a dot.
@@ -58,7 +57,7 @@ exports.versionbump = (currentVersion, tag) => {
       intVersionArray[1].toString();
       intVersionArray[2] = '0';
       const minorVersionBump = intVersionArray.join('.');
-      return minorVersionBump;
+      newVersion = minorVersionBump;
     } else if (tag === 'patch') {
       // increase patch.
       // Then turn everything to a sting and join with a dot.
@@ -67,10 +66,11 @@ exports.versionbump = (currentVersion, tag) => {
       intVersionArray[2]++;
       intVersionArray[2].toString();
       const patchVersionBump = intVersionArray.join('.');
-      return patchVersionBump;
+      newVersion = patchVersionBump;
     }
   } else {
     // return an error string to throw error in console with gulp
-    return 'error';
-  };
+    newVersion = 'error';
+  }
+  return newVersion;
 };
