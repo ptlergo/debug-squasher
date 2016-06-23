@@ -10,6 +10,10 @@ npm install debug-squasher --save
 ```
 
 ## Usage
+Create a `log` folder in your project with the file `lincoln.log`. This will be to save all your debug messages.
+```
+/log/lincoln.log
+```
 Require the 'debug-squasher' package.
 ``` javascript
 const util = require('debug-squasher');
