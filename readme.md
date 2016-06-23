@@ -17,16 +17,16 @@ const util = require('debug-squasher');
 
 ### .debug
 user can decide what the output message should be. A 2nd parameter is available
-for data output.
+for data output object. The last parameter is telling which console method to use.
 ``` javascript
-
-util.debug('Whatever you would like the message to output.', object);
+// Takes a title, object , and either log, error or warn
+util.debug('title', object, 'log | error | warn')
 ```
 
 ## Run
 debug-squasher runs only when the Environmental Variable 'DEBUG' is on.
 ```
-DEBUG=true node server.js
+DEBUG=true node src/util.js
 ```
 
 > visit my [app-store](https://github.com/ptlergo/App-Store) project to see it in action.  
