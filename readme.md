@@ -1,3 +1,4 @@
+[ ![Codeship Status for ptlergo/debug-squasher](https://codeship.com/projects/85b37f40-1b52-0134-eea8-66ed86225da0/status?branch=master)](https://codeship.com/projects/159622)
 # Debug-Squasher
 
 A simple debug tool to display debug messages where needed.
