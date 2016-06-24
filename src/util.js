@@ -22,20 +22,29 @@ exports.debug = (title, obj, method) => {
   }
 };
 
-  if (process.env.DEBUG) {
-    if (status === 'warn'){
-      const warn = output + obj + output2 + ' Warning Status!';
-      console.warn(colors.warn(warn));
+  exports.bump = (currentV, certainSetUpdate) => {
+    const major = currentV.major;
+    const minor = currentV.minor;
+    const patch = currentV.patch;
 
-    }else if(status === 'error'){
-      const error = output + obj + output2 + ' Failed to Load Output';
-      console.error(colors.error(error));
+    if(certainOf certainSetUpdate){
+
+      if (certainSetUpdate === 'major'){
+        patch = 0;
+        minor = 0;
+        major += 1;
+      }
+      if (certainSetUpdate === 'minor'){
+        minor += 1;
+        patch = 0;
+
+      }
+      if (certainSetUpdate === 'patch'){
+        patch += 1;
+      }
     }
-    }else if (status === 'log'){
-        const log = (output + obj + output2 + title ' Loading Output')
-        console.log(colors.error(log));
-
-    }else{
-      console.error(output + obj + output2 + ' Failed to Load Output');
-}
-};
+  } else {
+    console.warn('Second argument must be entered');
+  }
+  return 'Version: ' + major + '.' + minor + '.' + patch;
+  };
