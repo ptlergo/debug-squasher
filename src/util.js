@@ -1,68 +1,45 @@
-exports.debug = (title, obj) => {
-  const fs = require('fs');
-  // create colors inside conosole.log
-  const colors = require('colors');
-  const tstamp = new Date();
+const moment = require('moment');
+const colors = require('colors');
 
-  const timeOutput = '\n [ ' + tstamp + ' ] \n';
-  const seperator = '\n==========================\n'.red;
-  // create output string from variables
-  const output = seperator + title + seperator;
+// this will help format the json
+const utils = require('util');
 
-  // if DEBUG=true display the debugger
+// Util Debug
+exports.debug = (title, data, status, logtype) => {
+  // Time formater and local variables
+  const time = moment().format('ddd, MM/Do/YY, h:mm:ssa');
+  const seperator = '\n==============================================\n';
+  let log;
+
+  // function to format the log structure
+  function arrange(logTitle, logStatus, logData) {
+    return '\n[' + time + ']: ' + logTitle + ':\n' + logStatus + seperator
+            + colors.gray(utils.format('%j', logData)) + '\n';
+  }
+  // Check to see if in DEBUG mode
   if (process.env.DEBUG) {
-    fs.appendFile('log/lincoln.log', output, (err) => {
-      if (err) throw err;
-      console.log(output, obj, timeOutput.green);
-    });
-  }
-};
-
-exports.bump = (curver, label) => {
-  // setup local variables for the scope of the function
-  const pattern = /^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/;
-  let newver;
-  let num;
-
-  // test to see whether the version string passed in is correct format
-  if (pattern.test(curver)) {
-    // sets each indivial character of the current version number
-    //  to a array of integers after splitting the string
-    const splitver = curver.split('.').map(Number);
-    // verifying the label param in either lowercase or uppercase :)
-    const lowlabel = label.toLowerCase();
-
-    if (lowlabel === 'major') {
-      // Increases the major tag on the current version number
-      num = 0;
-      for (let curr = 0; curr < splitver.length; curr++) {
-        if (curr === num) splitver[curr] += 1;
-        else if (curr > num) splitver[curr] = 0;
-      }
-    } else if (lowlabel === 'minor') {
-      // Increases the minor tag on the current version number
-      num = 1;
-      for (let curr = 0; curr < splitver.length; curr++) {
-        if (curr === num) splitver[curr] += 1;
-        else if (curr > num) splitver[curr] = 0;
-      }
-    } else if (lowlabel === 'patch') {
-      // Increases the patch tag on the current version number
-      num = 2;
-      for (let curr = 0; curr < splitver.length; curr++) {
-        if (curr === num) splitver[curr] += 1;
-        else if (curr > num) splitver[curr] = 0;
-      }
-    } else {
-      // if label was something other than major.minor.patch it will return error string
-      newver = 'error';
-      return newver;
+    // switch statement to differ all log types
+    switch (logtype.toLowerCase()) {
+      case 'log':
+        // run the arrange function for log
+        log = arrange(title.green, status.green, data);
+        console.log(log);
+        break;
+      case 'warn':
+        // run the arrange function for warn
+        log = arrange(title.yellow, status.yellow, data);
+        console.warn(log);
+        break;
+      case 'error':
+        // run the arrange function for error
+        log = arrange(title.red, status.red, data);
+        console.error(log);
+        break;
+      default:
+        // run if no other matches are found insied of this statement
+        log = arrange('ERROR LOGGING', 'Parameter Error', 'ERROR DATA: Params were erroneous');
+        console.log(log);
+        break;
     }
-    // joins the integer array into a string once again,
-    // this time as the new version number and returns the data
-    newver = splitver.join('.');
-  } else {
-    newver = 'error';
   }
-  return newver;
 };

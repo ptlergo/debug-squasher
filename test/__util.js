@@ -1,64 +1,64 @@
 const util = require('../src/util');
 const expect = require('chai').expect;
+const sinon = require('sinon');
 
-describe('Debug-Squasher Debug Tool Test: ', () => {
-  // stub to test output
-  it('Should be able to recognize the debug string', (done) => {
-    expect(util.output).to.not.equal(null);
+describe('Util Logging Test', () => {
+  const title = 'Unit Test';
+  const data = { data: true };
+  const status = 'Running a Test';
+  let logcall;
+  let warncall;
+  let errcall;
+
+  beforeEach((done) => {
+    logcall = sinon.spy(console, 'log');
+    warncall = sinon.spy(console, 'warn');
+    errcall = sinon.spy(console, 'error');
     done();
   });
 
-  // stub to test logging
-});
-
-// Util Bump Unit Test
-describe('Util Version Bump', () => {
-  // Setup local scope variables:
-  // version for initial version # for each test
-  // set newver for expects
-  const version = '1.2.3';
-  let newver;
-
-  // Test for the Major Version Bump
-  it('| Should bump the version number by MAJOR', (done) => {
-    // run the util bump with the major param
-    // then expect the returned value to be correct
-    newver = util.bump(version, 'major');
-    expect(newver).to.be.equal('2.0.0');
+  afterEach((done) => {
+    console.log.restore();
+    console.warn.restore();
+    console.error.restore();
     done();
   });
 
-  // Test for the Minor Version Bump
-  it('| Should bump the version number by MINOR', (done) => {
-    // run the util bump with the minor param
-    // then expect the returned value to be correct
-    newver = util.bump(version, 'MINOR');
-    expect(newver).to.be.equal('1.3.0');
+  function test(logtype) {
+    util.debug(title, data, status, logtype);
+    if (logtype === 'log' || logtype === 'warn' || logtype === 'error') {
+      switch (logtype) {
+        case 'log':
+          expect(logcall.called).to.be.equal(true);
+          break;
+        case 'warn':
+          expect(warncall.called).to.be.equal(true);
+          break;
+        case 'error':
+          expect(errcall.called).to.be.equal(true);
+          break;
+        default:
+          break;
+      }
+    } else {
+      expect(logcall.args[0][0]).to.contain('Parameter Error');
+    }
+  }
+
+  it('| Should test for console.log', (done) => {
+    test('log');
     done();
   });
-
-  // Test for the Patch Version Bump
-  it('| Should bump the version number by PATCH', (done) => {
-    // run the util bump with the patch param
-    // then expect the returned value to be correct
-    newver = util.bump(version, 'PaTcH');
-    expect(newver).to.be.equal('1.2.4');
+  it('| Should test for console.warn', (done) => {
+    test('warn');
     done();
   });
-
-  // Test for Error return after LABEL is passed in incorrectly
-  it('| Should return error for incorrect LABEL', (done) => {
-    // run the util bump with the hello param, expecting error response
-    newver = util.bump(version, 'Hello');
-    expect(newver).to.be.equal('error');
+  it('| Should test for console.log', (done) => {
+    test('error');
     done();
   });
-
-  // Test for Error return after incorrect version string formatting is passed in
-  it('| Should return error for incorrect VERSION STRING', (done) => {
-    // run the util bump with the incorrect version string, expecting error response
-    newver = util.bump('1.2.4.5.6.7.8.9', 'minor');
-    expect(newver).to.be.equal('error');
+  it('| Should test for ERROR', (done) => {
+    test('random');
     done();
   });
 });
