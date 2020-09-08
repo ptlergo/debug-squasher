@@ -13,61 +13,38 @@ exports.debug = (title, obj, method) => {
   // create output string from variables
   const output = seperator + '\t' + title + seperator;
 
-  // if DEBUG=true display the debugger
+
   if (process.env.DEBUG) {
-    if (method === 'log') {
-      const log = output + colors.blue(timeOutput) + fObj;
-      console.log(log);
-    } else if (method === 'error') {
-      const error = output + colors.red(timeOutput) + fObj;
-      console.error(error);
-    } else if (method === 'warn') {
-      const warn = output + colors.yellow(timeOutput) + fObj;
-      console.warn(warn);
-    } else {
-      console.error(colors.red('You have passed a invalid method'));
-    }
+    console.log(output + output2);
+    // I took out the route to the logging file that is catching the logs.
+  } else {
+    console.error(new Error('The debugging tool did not find this'));
   }
 };
 
-exports.versionbump = (currentVersion, tag) => {
-  let newVersion;
-  // Split the string at the dot
-  const tagValues = currentVersion.split('.');
-  // Loop through the split array
-  for (let i = 0; i <= tagValues.length; i++) {
-    parseInt(tagValues[i], 10);
-  }
-  // Varify that the tag is either major minor or patch.
-  if (tag === 'major' || tag === 'minor' || tag === 'patch') {
-    if (tag === 'major') {
-      // Increase major and zero out minor and patch.
-      // Then turn everything to a sting and join with a dot.
-      tagValues[0]++;
-      tagValues[0].toString();
-      tagValues[1] = '0';
-      tagValues[2] = '0';
-      newVersion = tagValues.join('.');
-    } else if (tag === 'minor') {
-      // increase minor and zero patch.
-      // Then turn everything to a sting and join with a dot.
-      tagValues[0].toString();
-      tagValues[1]++;
-      tagValues[1].toString();
-      tagValues[2] = '0';
-      newVersion = tagValues.join('.');
-    } else if (tag === 'patch') {
-      // increase patch.
-      // Then turn everything to a sting and join with a dot.
-      tagValues[0].toString();
-      tagValues[1].toString();
-      tagValues[2]++;
-      tagValues[2].toString();
-      newVersion = tagValues.join('.');
+  exports.bump = (currentV, certainSetUpdate) => {
+    const major = currentV.major;
+    const minor = currentV.minor;
+    const patch = currentV.patch;
+
+    if(certainOf certainSetUpdate){
+
+      if (certainSetUpdate === 'major'){
+        patch = 0;
+        minor = 0;
+        major += 1;
+      }
+      if (certainSetUpdate === 'minor'){
+        minor += 1;
+        patch = 0;
+
+      }
+      if (certainSetUpdate === 'patch'){
+        patch += 1;
+      }
     }
   } else {
-    // return an error string to throw error in console with gulp
-    newVersion = 'error';
+    console.warn('Second argument must be entered');
   }
-  return newVersion;
-};
+  return 'Version: ' + major + '.' + minor + '.' + patch;
+  };
